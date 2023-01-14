@@ -77,21 +77,22 @@ console.log("This code took " + (t1 - t0) + " milliseconds");
 //   }, 5000);
 // });
 //! make 20 new paragraph and one function to work when click one any one of them
-make20();
-function make20() {
-  const myCustomDiv = document.createElement("div");
-  console.log(myCustomDiv);
+// make20();
+// function make20() {
+//   const myCustomDiv = document.createElement("div");
+//   console.log(myCustomDiv);
   
-  for (let i = 1; i <= 20; i++) {
-    const newElement = document.createElement("p");
-    newElement.textContent = "This is paragraph number " + i;
+//   for (let i = 1; i <= 20; i++) {
+//     const newElement = document.createElement("p");
+//     newElement.textContent = "This is paragraph number " + i;
     
-    myCustomDiv.appendChild(newElement);
-  }
-  let inDiv = document.querySelector("#portfolio .section_content");
-  inDiv.appendChild(myCustomDiv);
-}
+//     myCustomDiv.appendChild(newElement);
+//   }
+//   let inDiv = document.querySelector("#portfolio .section_content");
+//   inDiv.appendChild(myCustomDiv);
+// }
 
 const upBtn = document.querySelector(".btn__up");
 upBtn.onclick = function () {
+  console.log("from up button");
 }
