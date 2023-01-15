@@ -49,7 +49,6 @@ function dynamicAnchor() {
   }
   navList.appendChild(frag);
 }
-// `<li><a href="#${allSection[i].id}">${allSectionTitle[i].textContent}</a></li>`
 
 //TODO: checked & remove & add online link
 const t0 = performance.now();
@@ -58,46 +57,44 @@ const t0 = performance.now();
 const links = document.querySelectorAll("#navbar__list a");
 for (const link of links) {
   link.addEventListener("click", activeLink);
+  link.addEventListener("click", () => {
+    link.scrollIntoView({ behavior: "smooth" });
+  });
 }
-function activeLink(e) {
+function activeLink(event) {
   let checkClassName = "active__link";
   for (let link of links) {
-    if (link.classList.contains(checkClassName))
+    if (link.classList.contains(checkClassName)) {
       link.classList.remove(checkClassName);
+    }
   }
-  console.log("checked & remove & add online link");
-  return e.target.classList.add(checkClassName);
+  return event.target.classList.add(checkClassName);
 }
-const t1 = performance.now();
-console.log("This code took " + (t1 - t0) + " milliseconds");
 /* 
 end of checked & add 
 */
 //! remove active class from any section on window loading
-window.onload = sectionOffline();
+document.onload = sectionOffline();
 function sectionOffline() {
   for (const section of allSection) {
     section.removeAttribute("class");
-    // console.log(section)
   }
 }
 document.addEventListener("scroll", sectionOnline);
+
 function sectionOnline() {
   for (const section of allSection) {
-    const sectionSize = section.getBoundingClientRect();
-    const view = visualViewport.pageTop;
-    console.log(`section top : ${sectionSize.top}`)
-    // console.log(` view Port is: ${view}`)
-    console.log(`section bottom ${sectionSize.bottom}`)
-    if (sectionSize.top >= view && sectionSize.bottom <= view) {
+    const sectionSize = section.getBoundingClientRect().top;
+    if (200 >= sectionSize && sectionSize <= 800) {
       section.classList.add("section_online");
     } else {
+      if (section.hasAttribute("")) {
+        section.removeAttribute("class");
+      }
       section.classList.remove("section_online");
     }
   }
 }
-
-allSection[1].getBoundingClientRect().top;
 //? test time for any code
 /*
 const t0 = performance.now();
@@ -107,10 +104,15 @@ console.log("This code took " + (t1 - t0) + " milliseconds");
 //! hide nav bar aftere 5 second
 // const header = document.querySelector("header");
 // document.addEventListener("scroll", (event) => {
-//   header.style.position = "fixed";
-//   setTimeout(() => {
-//     header.style.position = "static";
-//   }, 5000);
+//   if(window.scrollY >= 300){
+//     header.style.opacity = 1;
+//     setTimeout(() => {
+//       header.style.opacity = 0;
+//     }, 5000);
+//   }
+//   header.onscroll = function(){
+//     header.style.opacity = 1;
+//   }
 // });
 
 //! Up button

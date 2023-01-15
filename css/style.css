@@ -8,8 +8,8 @@ html {
 }
 body {
   text-align: center;
-  transition: background ease-in-out 0.6s;
-  background: var(--bg-color);
+  transition: background ease-out 0.6s;
+  background-color: var(--bg-color);
   color: var(--color);
 }
 a {
@@ -71,10 +71,12 @@ img {
 .lightTheme {
   --bg-color: #f1f1f1;
   --color: #3d3d3d;
+  transition: ease-out all 0.4s;
 }
 .darkTheme {
   --color: #f1f1f1;
   --bg-color: #3d3d3d;
+  transition: ease-out all 0.4s;
 }
 /* toggle button */
 .lightUi {
@@ -96,8 +98,8 @@ img {
 }
 .darkUiDot {
   background: #c4c4c4;
-  box-shadow: inset 0 0 1px 20px #ffffff34, inset 0 0 4px 4px #ffffff77,
-    inset 0 0 0 2px #ffffff40;
+  box-shadow: inset 0 0 1px 20px #c5c5c534, inset 0 0 4px 4px #ffffff77,
+    inset 0 0 0 2px #ffffff37;
   border: 1px solid #ffffffef;
   right: calc(100% - (var(--dot-size)));
 }
@@ -118,13 +120,14 @@ img {
 /* start page style */
 /* ---------- header ---------- */
 header {
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100%;
   background: var(--color);
   color: var(--bg-color);
   box-shadow: 0px 0px 6px 2px #262626;
   z-index: 1000;
-  transition: ease-out position 0.6s;
+  transition: ease all 0.3s;
 }
 header .container {
   display: flex;
@@ -142,21 +145,18 @@ header .logo {
   display: flex;
   flex: 0 1;
   align-items: center;
-  animation: logo 3s 0.5s 1;
+  animation: logo 3s 0s 1;
   transition: 1s;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: Impact, Haettenschweiler, sans-serif;
   font-weight: 300;
   font-size: 1.725rem;
 }
 @keyframes logo {
-  40% {
-    transform: rotateX(180deg);
-  }
-  60% {
-    transform: rotateX(-180deg);
+  0% {
+    transform: rotateX(0deg) translateX(-24px);
   }
   100% {
-    transform: rotateX(0);
+    transform: rotateX(360deg);
   }
 }
 nav {
@@ -177,6 +177,7 @@ nav {
 #navbar__list li {
   height: 100%;
   list-style: none;
+  display: inline-block;
 }
 #navbar__list li a {
   height: 100%;
@@ -193,7 +194,7 @@ nav {
 #navbar__list .active__link {
   background: var(--bg-color);
   color: var(--color);
-  transition: ease 0.3s all;
+  transition: ease 0.4s all;
 }
 
 /* ---------- footer ---------- */
@@ -211,7 +212,9 @@ footer p {
 .landing {
   height: calc(100vh - 48px);
   position: relative;
-  display: flex;
+  display: inline-flex;
+  width: 100%;
+  overflow: hidden;
 }
 .landing .container {
   display: grid;
@@ -224,31 +227,34 @@ footer p {
   font-size: 10px;
 }
 .landing__background div:nth-child(2) {
-  width: 35em;
-  height: 35em;
+  width: 30vh;
+  height: 30vh;
   background-color: #03aab0;
   position: absolute;
   left: 20%;
-  top: 20%;
+  top: 10%;
   border-radius: 100vh;
+  animation: rounddown 5s linear 0s infinite;
 }
 .landing__background div:nth-child(1) {
-  width: 38em;
-  height: 38em;
+  width: 28vh;
+  height: 28vh;
   background-color: orange;
   position: absolute;
-  left: 30%;
+  left: 25%;
+  bottom: 30%;
   border-radius: 100vh;
-  bottom: 12%;
+  animation: roundup 4s linear 0s infinite;
 }
 .landing__background div:nth-child(3) {
-  width: 50em;
-  height: 50em;
+  width: 30vh;
+  height: 30vh;
   background-color: #d487eb;
   position: absolute;
   left: -5%;
-  bottom: 13%;
+  bottom: 17%;
   border-radius: 100vh;
+  animation: rounddown 4s linear 0s infinite;
 }
 .landing__background div:nth-child(4) {
   background-color: linear-gradient(
@@ -256,6 +262,7 @@ footer p {
     hsla(0, 0%, 100%, 0.2) 20%,
     hsla(0, 0%, 100%, 0.1) 40%
   );
+  border: 2px solid rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   width: 100%;
   height: 100%;
@@ -263,6 +270,23 @@ footer p {
   left: 0;
   top: 0;
 }
+@keyframes rounddown {
+  0% {
+    transform: rotate(0deg) translate(-10vw);
+  }
+  100% {
+    transform: rotate(360deg) translate(-10vw);
+  }
+}
+@keyframes roundup {
+  0% {
+    transform: rotate(360deg) translate(-10vw);
+  }
+  100% {
+    transform: rotate(0deg) translate(-10vw);
+  }
+}
+
 .landing :is(h1, h2) {
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.425);
   font-size: 2.725rem;
@@ -287,7 +311,7 @@ main .btn__up {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
   font-weight: 600;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.425);
-  transition: 0.9s;
+  transition: ease 0.4s all;
   display: none;
 }
 main .btn__up:hover,
@@ -298,7 +322,7 @@ main .btn__up:focus {
 }
 /* ---------- section ---------- */
 section {
-  height: 80vh;
+  height: calc(90vh - 48px);
   /* padding: 2rem; */
 }
 section .container {
@@ -346,7 +370,7 @@ section .section_main_title h2 {
   margin: 0;
   position: absolute;
   display: inline-flex;
-  top: 51%;
+  top: 42%;
 }
 section .section_main_title span {
   font-size: 16rem;
@@ -354,6 +378,7 @@ section .section_main_title span {
   color: var(--section-text);
   opacity: 0.2;
   margin: 0;
+  line-height: 1;
   position: relative;
   z-index: -1;
 }
@@ -364,6 +389,15 @@ section .section_main_title p {
   position: relative;
   font-size: 1.1rem;
 }
+@media (max-width: 992px) {
+  section .section_main_title h2 {
+    top: 46%;
+  }
+  section .section_main_title p {
+    bottom: 42px;
+  }
+}
+
 section .section_main_title::before {
   content: "";
   position: absolute;
@@ -374,8 +408,35 @@ section .section_main_title::before {
   background: linear-gradient(90deg, var(--color) 48%, #03aab0 52%);
   border-radius: 100vh;
 }
-section .section_online {
-border: 3px solid;
+.section_online {
+  position: relative;
+  overflow: hidden;
+}
+.section_online::before {
+  content: "";
+  position: absolute;
+  top: 9%;
+  left: 41%;
+  border: 52px dotted;
+  border-color: var(--color) var(--bg-color) ;
+  border-radius: 100vh;
+  width: 154px;
+  height: 154px;
+  transform: rotate(1deg);
+  background: var(--bg-color);
+  animation: fan 2s linear 0s infinite;
+  z-index: -1;
+}
+section:nth-child(odd)::before {
+  left: 44%;
+}
+@keyframes fan {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg)
+  }
 }
 @media (max-width: 576px) {
   section .container {
@@ -385,9 +446,9 @@ border: 3px solid;
   section:nth-child(odd) .section_main_title {
     order: 0;
   }
-  .landing__background {
+  /* .landing__background {
     font-size: 7px;
-  }
+  } */
   #navbar__list li a {
     padding-inline: 0.5rem;
     width: max-content;
@@ -398,6 +459,9 @@ border: 3px solid;
   nav .toggle_btn {
     align-self: flex-end !important;
     margin-right: 1rem;
+  }
+  .section_online::before {
+    left: 12%;
   }
 }
 main button {
