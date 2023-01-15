@@ -1,22 +1,41 @@
+document.addEventListener("DOMContentListener", addCloneSection);
+
+const addSection = document.querySelector("main button");
+addSection.addEventListener("click", addCloneSection);
+function addCloneSection() {
+  let cloneSection = document.createElement("section");
+  cloneSection.setAttribute("id", "clone");
+  let cloneContainer = document.createElement("div");
+  cloneContainer.classList.add("container");
+
+  let sectionContent = document.querySelector("#about .section_content");
+  let cloneContent = sectionContent.cloneNode(true);
+
+  addSection.before(cloneSection);
+  cloneSection.prepend(cloneContainer);
+  cloneContainer.innerHTML = `<div class="section_main_title"><h2>Clone</h2><span></span>
+  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+  </div></div>`;
+  cloneContainer.appendChild(cloneContent);
+}
 //! section Variable
 const allSection = document.querySelectorAll("section");
 const allSectionTitle = document.querySelectorAll(".section_main_title h2");
-
 //! add Number to every section
+addSectionNumber(); //call func to add number to title
 function addSectionNumber() {
   // add number of section beside the title
   for (let i = 0; i < allSectionTitle.length; i++) {
     allSectionTitle[i].nextElementSibling.innerHTML = `0${i + 1}`;
   }
 }
-addSectionNumber(); //call func to add number to title
 
 //TODO: function to create li > a > href #section ID and it take parameter for index loop
 const navList = document.querySelector("#navbar__list");
 
 dynamicAnchor();
 function dynamicAnchor() {
-  const frag = document.createDocumentFragment()
+  const frag = document.createDocumentFragment();
   for (let i = 0; i < allSection.length; i++) {
     // add <li> tag
     let navLink = document.createElement("li");
@@ -28,7 +47,7 @@ function dynamicAnchor() {
     navAnchor.textContent = `${allSectionTitle[i].textContent}`;
     navLink.appendChild(navAnchor);
   }
-  navList.appendChild(frag)
+  navList.appendChild(frag);
 }
 // `<li><a href="#${allSection[i].id}">${allSectionTitle[i].textContent}</a></li>`
 
@@ -44,12 +63,12 @@ function activeLink(e) {
   let checkClassName = "active__link";
   for (let link of links) {
     if (link.classList.contains(checkClassName))
-    link.classList.remove(checkClassName);
+      link.classList.remove(checkClassName);
   }
   console.log("checked & remove & add online link");
   return e.target.classList.add(checkClassName);
 }
-const t1 = performance.now()
+const t1 = performance.now();
 console.log("This code took " + (t1 - t0) + " milliseconds");
 /* 
 end of checked & add 
@@ -62,6 +81,23 @@ function sectionOffline() {
     // console.log(section)
   }
 }
+document.addEventListener("scroll", sectionOnline);
+function sectionOnline() {
+  for (const section of allSection) {
+    const sectionSize = section.getBoundingClientRect();
+    const view = visualViewport.pageTop;
+    console.log(`section top : ${sectionSize.top}`)
+    // console.log(` view Port is: ${view}`)
+    console.log(`section bottom ${sectionSize.bottom}`)
+    if (sectionSize.top >= view && sectionSize.bottom <= view) {
+      section.classList.add("section_online");
+    } else {
+      section.classList.remove("section_online");
+    }
+  }
+}
+
+allSection[1].getBoundingClientRect().top;
 //? test time for any code
 /*
 const t0 = performance.now();
@@ -76,23 +112,23 @@ console.log("This code took " + (t1 - t0) + " milliseconds");
 //     header.style.position = "static";
 //   }, 5000);
 // });
-//! make 20 new paragraph and one function to work when click one any one of them
-// make20();
-// function make20() {
-//   const myCustomDiv = document.createElement("div");
-//   console.log(myCustomDiv);
-  
-//   for (let i = 1; i <= 20; i++) {
-//     const newElement = document.createElement("p");
-//     newElement.textContent = "This is paragraph number " + i;
-    
-//     myCustomDiv.appendChild(newElement);
-//   }
-//   let inDiv = document.querySelector("#portfolio .section_content");
-//   inDiv.appendChild(myCustomDiv);
-// }
 
+//! Up button
 const upBtn = document.querySelector(".btn__up");
 upBtn.onclick = function () {
-  console.log("from up button");
+  window.scrollTo({
+    left: 0,
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
+window.addEventListener("scroll", showUpBtn);
+function showUpBtn() {
+  // if (document.documentElement.scrollTop > 300) {
+  if (window.scrollY >= 300) {
+    upBtn.style.display = "flex";
+  } else {
+    upBtn.style.display = "none";
+  }
 }
