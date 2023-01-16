@@ -1,106 +1,89 @@
-document.addEventListener("DOMContentListener", addCloneSection);
+//! Global Variable
+const list = document.getElementById("navbar__list");
+const sections = document.querySelectorAll("section");
 
-const addSection = document.querySelector("main button");
-addSection.addEventListener("click", addCloneSection);
-function addCloneSection() {
-  let cloneSection = document.createElement("section");
-  cloneSection.setAttribute("id", "clone");
-  let cloneContainer = document.createElement("div");
-  cloneContainer.classList.add("container");
-
-  let sectionContent = document.querySelector("#about .section_content");
-  let cloneContent = sectionContent.cloneNode(true);
-
-  addSection.before(cloneSection);
-  cloneSection.prepend(cloneContainer);
-  cloneContainer.innerHTML = `<div class="section_main_title"><h2>Clone</h2><span></span>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-  </div></div>`;
-  cloneContainer.appendChild(cloneContent);
-}
-//! section Variable
-const allSection = document.querySelectorAll("section");
-const allSectionTitle = document.querySelectorAll(".section_main_title h2");
-//! add Number to every section
+//! Function for ::: add Number to every section
+const sectionsTitle = document.querySelectorAll(".section_main_title span");
 addSectionNumber(); //call func to add number to title
 function addSectionNumber() {
   // add number of section beside the title
-  for (let i = 0; i < allSectionTitle.length; i++) {
-    allSectionTitle[i].nextElementSibling.innerHTML = `0${i + 1}`;
+  for (let index in sections) {
+    sectionsTitle[index].textContent = `0${+index + 1}`;
   }
 }
 
-//TODO: function to create li > a > href #section ID and it take parameter for index loop
-const navList = document.querySelector("#navbar__list");
+//TODO:: Function to create (li > a > href , #section ID)and it take parameter for index loop
+const frag = document.createDocumentFragment(); // Use Fragment() as a Variable
+dynamicAnchor(); // call the function
 
-dynamicAnchor();
 function dynamicAnchor() {
-  const frag = document.createDocumentFragment();
-  for (let i = 0; i < allSection.length; i++) {
-    // add <li> tag
-    let navLink = document.createElement("li");
-    frag.appendChild(navLink);
-    // add <a> tag
-    let navAnchor = document.createElement("a");
-    // add <a href="#"> attribute and title link into anchor
-    navAnchor.setAttribute("href", `#${allSection[i].id}`);
-    navAnchor.textContent = `${allSectionTitle[i].textContent}`;
-    navLink.appendChild(navAnchor);
+  for (let i = 0; i < sections.length; i++) {
+    let listItem = document.createElement("li"); // Add <li> Tag
+    let navAnchor = document.createElement("a"); // Add <a> Tag
+    navAnchor.setAttribute("href", `#${sections[i].id}`); // add <a href="#"> attribute and title link into anchor
+    navAnchor.textContent = `${sections[i].dataset.nav}`; //<a> text content
+    listItem.appendChild(navAnchor);
+
+    // make link click scrolling (smooth)
+    navAnchor.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      sections[i].scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+    // but all <li> in fragement
+    frag.appendChild(listItem);
   }
-  navList.appendChild(frag);
+  list.appendChild(frag);
 }
 
-//TODO: checked & remove & add online link
-const t0 = performance.now();
-
-// add event on click to anchor link
+//TODO: Checked & Remove & Add Active Link
 const links = document.querySelectorAll("#navbar__list a");
+// Anchor on CLICK make it active link
 for (const link of links) {
   link.addEventListener("click", activeLink);
-  link.addEventListener("click", () => {
-    link.scrollIntoView({ behavior: "smooth" });
-  });
 }
-function activeLink(event) {
-  let checkClassName = "active__link";
+function activeLink(e) {
   for (let link of links) {
-    if (link.classList.contains(checkClassName)) {
-      link.classList.remove(checkClassName);
+    if (link.classList.contains("active__link")) {
+      link.classList.remove("active__link");
     }
   }
-  return event.target.classList.add(checkClassName);
+  e.target.classList.add("active__link");
 }
-/* 
-end of checked & add 
-*/
-//! remove active class from any section on window loading
-document.onload = sectionOffline();
-function sectionOffline() {
-  for (const section of allSection) {
-    section.removeAttribute("class");
-  }
-}
-document.addEventListener("scroll", sectionOnline);
 
-function sectionOnline() {
-  for (const section of allSection) {
-    const sectionSize = section.getBoundingClientRect().top;
-    if (200 >= sectionSize && sectionSize <= 800) {
-      section.classList.add("section_online");
+//! section Online & Offline
+const option = {
+  root: null, // null = it is the viewport
+  threshold: 0.3, // 0 to 1.0 // 1 = 100% of intersection
+  rootMargin: "-48px 0px", // is exactly -(margin "top right bottom left") negative value to be inside the viewbox
+};
+// const observer = new IntersectionObserver(callback,option)
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    entry.target.classList.remove("section_online"); // remove any default active class from section
+    if (entry.isIntersecting) {
+      entry.target.classList.add("section_online");
+
+      // if section in viewArea marke the link who name is in section data-nav
+      links.forEach((link) => {
+        link.classList.remove("active__link");
+        if (link.textContent === entry.target.dataset.nav) {
+          link.classList.toggle("active__link");
+        }
+      });
     } else {
-      if (section.hasAttribute("")) {
-        section.removeAttribute("class");
-      }
-      section.classList.remove("section_online");
+      entry.target.classList.remove("section_online"); //remove active class from any section not in viewsection
     }
-  }
-}
-//? test time for any code
-/*
-const t0 = performance.now();
-const t1 = performance.now()
-console.log("This code took " + (t1 - t0) + " milliseconds");
-*/
+  });
+}, option);
+
+window.addEventListener("scroll", () => {
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
+});
+
 //! hide nav bar aftere 5 second
 // const header = document.querySelector("header");
 // document.addEventListener("scroll", (event) => {
@@ -115,7 +98,7 @@ console.log("This code took " + (t1 - t0) + " milliseconds");
 //   }
 // });
 
-//! Up button
+//! Go to TOP button
 const upBtn = document.querySelector(".btn__up");
 upBtn.onclick = function () {
   window.scrollTo({
@@ -127,10 +110,18 @@ upBtn.onclick = function () {
 
 window.addEventListener("scroll", showUpBtn);
 function showUpBtn() {
-  // if (document.documentElement.scrollTop > 300) {
   if (window.scrollY >= 300) {
     upBtn.style.display = "flex";
   } else {
     upBtn.style.display = "none";
   }
 }
+
+//! when document scroll to top remove any active class
+window.addEventListener("scroll", function Offline() {
+  if (window.scrollY <= 150) {
+    links.forEach((link) => {
+      link.classList.remove("active__link");
+    });
+  }
+});
