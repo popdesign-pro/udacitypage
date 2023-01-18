@@ -97,6 +97,15 @@ window.addEventListener("scroll", () => {
 //     header.style.opacity = 1;
 //   }
 // });
+//! when document scroll to top remove any active class
+window.addEventListener("scroll", Offline);
+function Offline() {
+  if (window.scrollY <= 150) {
+    links.forEach((link) => {
+      link.classList.remove("active__link");
+    });
+  }
+}
 
 //! Go to TOP button
 const upBtn = document.querySelector(".btn__up");
@@ -117,11 +126,3 @@ function showUpBtn() {
   }
 }
 
-//! when document scroll to top remove any active class
-window.addEventListener("scroll", function Offline() {
-  if (window.scrollY <= 150) {
-    links.forEach((link) => {
-      link.classList.remove("active__link");
-    });
-  }
-});
