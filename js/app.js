@@ -85,18 +85,18 @@ window.addEventListener("scroll", () => {
 });
 
 //! hide nav bar aftere 5 second
-// const header = document.querySelector("header");
-// document.addEventListener("scroll", (event) => {
-//   if(window.scrollY >= 300){
-//     header.style.opacity = 1;
-//     setTimeout(() => {
-//       header.style.opacity = 0;
-//     }, 5000);
-//   }
-//   header.onscroll = function(){
-//     header.style.opacity = 1;
-//   }
-// });
+const header = document.querySelector("header");
+document.addEventListener("scroll", (event) => {
+  if(window.scrollY >= 300){
+    header.style.opacity = 1;
+    setTimeout(() => {
+      header.style.opacity = 0;
+    }, 5000);
+  }
+});
+header.onmouseenter = function(){
+  header.style.opacity = 1;
+}
 //! when document scroll to top remove any active class
 window.addEventListener("scroll", Offline);
 function Offline() {
@@ -119,7 +119,7 @@ upBtn.onclick = function () {
 
 window.addEventListener("scroll", showUpBtn);
 function showUpBtn() {
-  if (window.scrollY >= 300) {
+  if (window.scrollY >= 800) {
     upBtn.style.display = "flex";
   } else {
     upBtn.style.display = "none";
