@@ -118,6 +118,7 @@ upBtn.onclick = function () {
 };
 
 window.addEventListener("scroll", showUpBtn);
+upBtn.style.display = "none";
 function showUpBtn() {
   if (window.scrollY >= 800) {
     upBtn.style.display = "flex";
@@ -126,3 +127,22 @@ function showUpBtn() {
   }
 }
 
+//! make section insert with scroll
+const sectionFade = document.querySelectorAll(".fade-in");
+const fadeOption = {
+  rootMargin: "0px 0px -300px 0px",
+};
+const appearOnScroll = new IntersectionObserver((entries, appearOnScroll) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) {
+      return;
+    } else {
+      entry.target.classList.add("appear");
+      appearOnScroll.unobserve(entry.target);
+    }
+  });
+}, fadeOption);
+
+sectionFade.forEach((fade) => {
+  appearOnScroll.observe(fade);
+});

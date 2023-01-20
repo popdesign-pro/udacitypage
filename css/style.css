@@ -317,6 +317,7 @@ main .btn__up:focus {
 section {
   height: 90vh;
   padding-top: 48px;
+  overflow: hidden;
 }
 @media (max-width: 768px) {
   section {
@@ -359,6 +360,25 @@ section:nth-child(even).section_main_title {
 section:nth-child(even) .section_main_title h2 {
   align-self: flex-start;
   left: 8%;
+}
+section:nth-child(even) .section_main_title {
+  transform: translateX(-80%);
+}
+section:nth-child(odd) .section_main_title {
+  transform: translateX(80%);
+}
+section:nth-child(even) .section_content {
+  transform: translateX(80%);
+}
+section:nth-child(odd) .section_content {
+  transform: translateX(-80%);
+}
+.section_main_title,
+.section_content {
+  transition: transform 0.8s ease-in;
+}
+.appear{
+  transform: translateX(0) !important;
 }
 section .section_main_title h2 {
   font-family: Impact, Haettenschweiler, sans-serif;
@@ -415,11 +435,11 @@ section .section_main_title::before {
 .section_online::after {
   content: "";
   position: absolute;
-  border: 22px dotted;
-  border-color: var(--color) transparent transparent transparent;
+  border: 32px solid;
+  border-color: var(--color) transparent;
   border-radius: 100vh;
-  width: 246px;
-  height: 233px;
+  width: 300px;
+  height: 300px;
   transform: rotate(1deg);
   opacity: 0.3;
   z-index: -1;
@@ -447,30 +467,30 @@ section:nth-child(even).section_online::after {
 @media (min-width: 768px) {
   section:nth-child(even).section_online::before {
     left: 5%;
-}
-section:nth-child(odd).section_online::after {
-  right: 8%;
-}
+  }
+  section:nth-child(odd).section_online::after {
+    right: 8%;
+  }
 }
 @media (min-width: 1200px) {
   section:nth-child(even).section_online::before {
     top: 11%;
     left: 10%;
     animation: Ofan 3s linear 0s infinite;
-}
-section:nth-child(odd).section_online::after {
-  top: 12%;
-  right: 10%;
-  animation: Ofan 3s linear 0s infinite;
-}
+  }
+  section:nth-child(odd).section_online::after {
+    top: 12%;
+    right: 10%;
+    animation: Ofan 3s linear 0s infinite;
+  }
 }
 @media (min-width: 1400px) {
   section:nth-child(even).section_online::before {
     left: 13%;
   }
-section:nth-child(odd).section_online::after {
+  section:nth-child(odd).section_online::after {
     right: 13%;
-}
+  }
 }
 @keyframes fan {
   0% {
