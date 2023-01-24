@@ -6,7 +6,7 @@
 - [Description](#description).
 - [App URL](#app-url).
 - [Dependencies](#dependencies).
-- [How To Use](#how-to-use).
+- [Quik view](#Demo).
 
 
 ## Description
