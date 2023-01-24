@@ -7,11 +7,26 @@ toggleButton.style.cssText =
 toggleDot.style.cssText =
   "  display: block;width: calc(var(--dot-size) - var(--dot-space));height: calc(var(--dot-size) - var(--dot-space));border-radius: 100vw;box-sizing: border-box;position: absolute;transition: background ease-in 0.6s, right ease-in 0.5s;cursor: pointer";
 
-toggleDot.addEventListener("click", function () {
+toggleDot.addEventListener("click", function (e) {
   document.body.classList.toggle("lightTheme");
   document.body.classList.toggle("darkTheme");
-  this.classList.toggle("darkUiDot");
-  this.classList.toggle("lightUiDot");
-  document.querySelector(".toggle_btn").classList.toggle("darkUi");
-  document.querySelector(".toggle_btn").classList.toggle("lightUi");
+  window.localStorage.setItem("theme",document.body.classList)
+  
+  e.target.classList.toggle("darkUiDot");
+  e.target.classList.toggle("lightUiDot");
+  window.localStorage.setItem("dot",toggleDot.classList)
+
+  toggleButton.classList.toggle("darkUi");
+  toggleButton.classList.toggle("lightUi");
+  window.localStorage.setItem("btn",toggleButton.classList)
+  
 });
+if(window.localStorage.theme) {
+  document.body.classList = window.localStorage.theme
+}
+if(window.localStorage.btn) {
+  toggleButton.classList = window.localStorage.btn
+}
+if(window.localStorage.theme) {
+  toggleDot.classList = window.localStorage.dot
+}

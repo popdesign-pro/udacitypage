@@ -377,7 +377,7 @@ section:nth-child(odd) .section_content {
 .section_content {
   transition: transform 0.8s ease-in;
 }
-.appear{
+.appear {
   transform: translateX(0) !important;
 }
 section .section_main_title h2 {
@@ -431,95 +431,34 @@ section .section_main_title::before {
   overflow: hidden;
 }
 
-.section_online::before,
-.section_online::after {
+.section_online .container::before {
   content: "";
   position: absolute;
-  border: 32px solid;
-  border-color: var(--color) transparent;
+  width: 90%;
+  height: 50%;
+  top: 0%;
+  left: 0%;
+  margin-inline: auto;
+  border: 20px solid;
+  border-color: transparent var(--color);
   border-radius: 100vh;
-  width: 300px;
-  height: 300px;
-  transform: rotate(1deg);
   opacity: 0.3;
+  animation: fan 3s linear 0s 2;
   z-index: -1;
 }
-section:nth-child(even).section_online::before {
-  top: 17%;
-  left: 14%;
-  animation: Ofan 3s linear 0s infinite;
-}
-section:nth-child(odd).section_online::after {
-  top: 17%;
-  right: 14%;
-  animation: Ofan 3s linear 0s infinite;
-}
-section:nth-child(odd).section_online::before {
-  bottom: 0;
-  left: 5%;
-  animation: fanO 2s linear 0s infinite;
-}
-section:nth-child(even).section_online::after {
-  bottom: 0;
-  right: 5%;
-  animation: fan 2s linear 0s infinite;
-}
-@media (min-width: 768px) {
-  section:nth-child(even).section_online::before {
-    left: 5%;
-  }
-  section:nth-child(odd).section_online::after {
-    right: 8%;
-  }
-}
-@media (min-width: 1200px) {
-  section:nth-child(even).section_online::before {
-    top: 11%;
-    left: 10%;
-    animation: Ofan 3s linear 0s infinite;
-  }
-  section:nth-child(odd).section_online::after {
-    top: 12%;
-    right: 10%;
-    animation: Ofan 3s linear 0s infinite;
-  }
-}
-@media (min-width: 1400px) {
-  section:nth-child(even).section_online::before {
-    left: 13%;
-  }
-  section:nth-child(odd).section_online::after {
-    right: 13%;
-  }
-}
+
 @keyframes fan {
-  0% {
-    transform: rotate(260deg);
-  }
-  60% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(260deg);
-  }
-}
-@keyframes fanO {
-  0% {
-    transform: rotate(-260deg);
-  }
-  60% {
-    transform: rotate(-360deg);
-  }
-  100% {
-    transform: rotate(-260deg);
-  }
-}
-@keyframes Ofan {
   0% {
     transform: rotate(0deg);
   }
+  40% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
   100% {
-    transform: rotate(-360deg);
+    transform: rotate(0deg);
   }
 }
 
