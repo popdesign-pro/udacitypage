@@ -222,7 +222,9 @@ footer p {
 .landing h2 {
   font-size: 1.725rem;
 }
-
+.landing span {
+  color: #03aab0;
+}
 /* three balls and animation */
 .landing__background div:nth-child(2) {
   width: 30vh;
