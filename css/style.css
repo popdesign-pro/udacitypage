@@ -427,38 +427,41 @@ section .section_main_title::before {
   border-radius: 100vh;
 }
 .section_online {
-  position: relative;
   overflow: hidden;
 }
-
+.section_online .container {
+  position: relative;
+}
 .section_online .container::before {
   content: "";
   position: absolute;
-  width: 90%;
-  height: 50%;
-  top: 0%;
-  left: 0%;
+  width: 92%;
+  height: 20%;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
   margin-inline: auto;
   border: 20px solid;
   border-color: transparent var(--color);
   border-radius: 100vh;
   opacity: 0.3;
-  animation: fan 3s linear 0s 2;
+  animation: fan 2s linear 0s forwards;
   z-index: -1;
 }
 
 @keyframes fan {
   0% {
-    transform: rotate(0deg);
+    width: 100%;
   }
   40% {
-    transform: rotate(5deg);
+    width: 10%;
   }
   80% {
-    transform: rotate(-5deg);
+    width: 5%;
   }
   100% {
-    transform: rotate(0deg);
+    width: 100%;
+    height: 150%;
   }
 }
 
