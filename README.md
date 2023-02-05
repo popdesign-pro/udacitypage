@@ -1,6 +1,6 @@
 # Project [Professional Develop]
 - for Udacity
-# <img src="https://raw.githubusercontent.com/popdevel/pro_design/0c86736d406704c471074d78f27b38fab499cb0f/images/pdyellow.svg" alt="logo" width="40px"> popdevel&copy;
+# <img src="https://raw.githubusercontent.com/popdevel/landingpage/0c86736d406704c471074d78f27b38fab499cb0f/images/pdyellow.svg" alt="logo" width="40px"> popdevel&copy;
 
 ## Contents:
 - [Description](#description).
@@ -22,8 +22,8 @@
   
 ## App URL
 
-- https://popdevel.github.io/pro_design/
+- https://popdevel.github.io/landingpage/
 
 
 ## Demo
-![demo01](https://github.com/popdevel/pro_design/blob/master/images/demo.jpeg?raw=true) 
+![demo01](https://github.com/popdevel/landingpage/blob/master/images/demo.jpeg?raw=true) 
