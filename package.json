@@ -1,0 +1,24 @@
+{
+  "name": "udacity-page",
+  "version": "1.0.1",
+  "description": "this a landing page made for udacity",
+  "main": "\"\"",
+  "scripts": {
+    "test": "\"\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popdesign-pro/udacitypage.git"
+  },
+  "keywords": [
+    "Udacity",
+    "landing",
+    "page"
+  ],
+  "author": "popdesign.pro",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/popdesign-pro/udacitypage/issues"
+  },
+  "homepage": "https://github.com/popdesign-pro/udacitypage#readme"
+}

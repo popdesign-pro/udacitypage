@@ -40,17 +40,18 @@ function dynamicAnchor() {
 //TODO: Checked & Remove & Add Active Link
 const links = document.querySelectorAll("#navbar__list a");
 // Anchor on CLICK make it active link
-for (const link of links) {
-  link.addEventListener("click", activeLink);
-}
-function activeLink(e) {
-  for (let link of links) {
-    if (link.classList.contains("active__link")) {
+links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    links.forEach((link) => {
       link.classList.remove("active__link");
-    }
-  }
-  e.target.classList.add("active__link");
-}
+    });
+    link.classList.add("active__link");
+
+    var line = document.querySelector("nav .line");
+    line.style.width = link.offsetWidth + "px";
+    line.style.left = link.offsetLeft + "px";
+  });
+});
 
 //! section Online & Offline
 const option = {
@@ -69,11 +70,16 @@ const observer = new IntersectionObserver((entries, observer) => {
       links.forEach((link) => {
         link.classList.remove("active__link");
         if (link.textContent === entry.target.dataset.nav) {
-          link.classList.toggle("active__link");
+          link.classList.add("active__link");
+          var line = document.querySelector("nav .line");
+          line.style.width = link.offsetWidth + "px";
+          line.style.left = link.offsetLeft + "px";
         }
       });
     } else {
       entry.target.classList.remove("section_online"); //remove active class from any section not in viewsection
+      var line = document.querySelector("nav .line");
+      // line.style.width = "";
     }
   });
 }, option);
